@@ -1,34 +1,3 @@
-# blog
-
-[《一个 Vue + Node + MongoDB 博客系统》](https://chaohangz.github.io/2017/04/17/vue-blog%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/#more)
-
-## ENV
-1. Node.js v6.9.4
-2. MongoDB v3.4.1
-3. Vue.js v2.2.1
-
-## 实现的功能
-1. 文章的编辑，修改，删除
-2. 支持使用 `Markdown` 编辑与实时预览
-3. 支持代码高亮
-4. 给文章添加标签
-5. 支持用户注册登录
-
-## 使用到的技术
-### 前端
-1. Vue.js
-2. vue-cli
-3. vue-router
-4. vue-resource
-5. element-ui
-6. marked
-7. highlight.js
-
-### 后端
-1. Node.js
-2. Express
-3. Mongoose
-
 ## 项目目录
 
 ```
@@ -73,26 +42,4 @@ node app
 # 启动前端开发者模式
 npm run dev
 ```
-
-## 截图
-
-首页
-
-![index](./screenshot/index.png)
-
-详情页
-
-![detail](./screenshot/detail.png)
-
-登录页
-
-![signin](./screenshot/signin.png)
-
-后台管理页
-
-![manage](./screenshot/manage.png)
-
-编辑页
-
-![edit](./screenshot/edit.png)
 
