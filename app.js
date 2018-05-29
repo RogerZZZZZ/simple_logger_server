@@ -6,6 +6,8 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const router = require('./server/router')
 const app = express()
+const redis = require('redis')
+let child_process = require('child_process')
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -37,3 +39,21 @@ app.get('*', function (req, res) {
 app.listen(3000, function () {
   console.log('访问地址为 localhost:3000')
 })
+
+const keyClient = redis.createClient({db: 1})
+const pubClient = redis.createClient()
+
+child_process.execSync('redis-cli config set notify-keyspace-events Ex')
+
+pubClient.psubscribe('__keyevent@1__:expired')
+keyClient.set('mykey', 'hello', () => {
+  keyClient.pexpireat('mykey', +new Date('2018/5/29 15:37:00'))
+});
+
+let futureFun = () =>{
+  console.log('hello world');
+};
+
+pubClient.on('pmessage', (channel, listen, key)=>{
+  key == 'mykey' && futureFun();
+});
