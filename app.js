@@ -5,6 +5,9 @@ const bodyParse = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const router = require('./server/router')
+const pvRouter = require('./server/pv.router')
+const eventRouter = require('./server/event.router')
+const cors = require('cors')
 const app = express()
 const redis = require('redis')
 let child_process = require('child_process')
@@ -14,7 +17,13 @@ const resolve = file => path.resolve(__dirname, file)
 app.use('/dist', express.static(resolve('./dist')))
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }))
-app.use(router)
+
+// router init
+app.use('/', router)
+app.use('/pv', pvRouter)
+app.use('/event', eventRouter)
+
+app.use(cors())
 
 // session
 app.set('trust proxy', 1) // trust first proxy
@@ -47,7 +56,7 @@ child_process.execSync('redis-cli config set notify-keyspace-events Ex')
 
 pubClient.psubscribe('__keyevent@1__:expired')
 keyClient.set('mykey', 'hello', () => {
-  keyClient.pexpireat('mykey', +new Date('2018/5/29 15:37:00'))
+  keyClient.pexpireat('mykey', +new Date('2018/5/29 21:59:00'))
 });
 
 let futureFun = () =>{
