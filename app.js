@@ -22,7 +22,6 @@ app.use(bodyParse.urlencoded({ extended: true }))
 app.use('/', router)
 app.use('/pv', pvRouter)
 app.use('/event', eventRouter)
-
 app.use(cors())
 
 // session
