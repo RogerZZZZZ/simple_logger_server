@@ -1,5 +1,6 @@
 const express = require('express')
 const requestIp = require('request-ip')
+const get_ip = require('ipware')().get_ip
 const pvRouter = express.Router()
 
 pvRouter.use(function(req, res, next) {
@@ -19,6 +20,8 @@ pvRouter.post('/visitor', (req, res) => {
 pvRouter.get('/test-ip', (req, res) => {
     const clientIp = requestIp.getClientIp(req)
     console.log(clientIp)
+    const realIp = get_ip(req)
+    console.log('----', realIp)
     res.status(200).json({data:1})
 })
 

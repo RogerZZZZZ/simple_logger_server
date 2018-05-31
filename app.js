@@ -1,3 +1,7 @@
+/**
+ * Module dependencies
+ */
+
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
@@ -25,7 +29,9 @@ app.use(requestIp.mw())
 app.use('/', router)
 app.use('/pv', pvRouter)
 app.use('/event', eventRouter)
-app.use(cors())
+app.use(cors({
+  credentials: true
+}))
 
 // session
 app.set('trust proxy', 1) // trust first proxy
@@ -38,7 +44,7 @@ app.use(session({
     maxAge: 2592000000
   },
   store: new MongoStore({
-    url: 'mongodb://localhost:27017/blog'
+    url: 'mongodb://localhost:27017/logger'
   })
 }))
 
