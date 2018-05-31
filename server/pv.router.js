@@ -1,5 +1,5 @@
 const express = require('express')
-
+const requestIp = require('request-ip')
 const pvRouter = express.Router()
 
 pvRouter.use(function(req, res, next) {
@@ -10,9 +10,15 @@ pvRouter.use(function(req, res, next) {
 
 pvRouter.post('/visitor', (req, res) => {
     console.log(req.body)
-    res.json({
+    const clientIp = requestIp.getClientIp(req)
+    res.status(200).json({
         data: 1
     })
+})
+
+pvRouter.get('/test-ip', (req, res) => {
+    const clientIp = requestIp.getClientIp(req)
+    console.log(clientIp)
 })
 
 

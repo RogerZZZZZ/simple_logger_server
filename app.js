@@ -10,13 +10,16 @@ const eventRouter = require('./server/event.router')
 const cors = require('cors')
 const app = express()
 const redis = require('redis')
-let child_process = require('child_process')
+const child_process = require('child_process')
+const requestIp = require('request-ip')
 
 const resolve = file => path.resolve(__dirname, file)
 
 app.use('/dist', express.static(resolve('./dist')))
 app.use(bodyParse.json())
 app.use(bodyParse.urlencoded({ extended: true }))
+
+app.use(requestIp.mw())
 
 // router init
 app.use('/', router)
