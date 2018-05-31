@@ -19,6 +19,7 @@ pvRouter.post('/visitor', (req, res) => {
 pvRouter.get('/test-ip', (req, res) => {
     const clientIp = requestIp.getClientIp(req)
     console.log(clientIp)
+    res.status(200).json({data:1})
 })
 
 
