@@ -2,5 +2,5 @@
  * Expose
  */
 module.exports = {
-  mongodb: process.env.MONGOHQ_URL
+  mongodb: process.env.MONGODB
 }

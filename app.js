@@ -16,6 +16,8 @@ const app = express()
 const redis = require('redis')
 const child_process = require('child_process')
 const requestIp = require('request-ip')
+const config = require('./server/config')
+const pkg = require('./package.json')
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -36,7 +38,7 @@ app.use(cors({
 // session
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'blog',
+  secret: pkg.name,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -44,7 +46,8 @@ app.use(session({
     maxAge: 2592000000
   },
   store: new MongoStore({
-    url: 'mongodb://localhost:27017/logger'
+    url: config.db,
+    collection: 'session'
   })
 }))
 
@@ -53,8 +56,8 @@ app.get('*', function (req, res) {
   res.send(html)
 })
 
-app.listen(3000, function () {
-  console.log('访问地址为 localhost:3000')
+app.listen(3005, function () {
+  console.log('访问地址为 localhost:3005')
 })
 
 const keyClient = redis.createClient({db: 1})
