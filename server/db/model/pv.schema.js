@@ -53,5 +53,15 @@ PVSchema.methods = {
  * Statics
  */
 PVSchema.statics = {
-  
+  loadTimePeriod: (opt) => {
+    const startTime = new Date(opt['startTime']) || new Date('2000-01-01')
+    const endTime = new Date(opt['endTime']) || new Date()
+    const reqOption = {
+      createTime: {
+        '$gte': startTime.toISOString(),
+        '$lte': endTime.toISOString()
+      }
+    }
+    return this.find(reqOption)
+  }
 }
