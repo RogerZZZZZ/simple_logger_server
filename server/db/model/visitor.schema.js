@@ -13,10 +13,25 @@ const VisitorSchema = new Schema({
     default: '',
     trim: true
   },
-  platForm: {
+  platform: {
     type: String,
     default: 'not clear',
     trim: true,
+  },
+  os: {
+    type: String,
+    default: '',
+    trim: true,
+  },
+  version: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  page: {
+    type: String,
+    default: '',
+    trim: true
   },
   region: {
     type: String,
@@ -39,6 +54,7 @@ const VisitorSchema = new Schema({
  */
 VisitorSchema.path('ipAddress').required(true, 'ip address can not be blank')
 VisitorSchema.path('tag').required(true, 'tag can not be blank')
+VisitorSchema.path('page').required(true, 'page can not be blank')
 
 
 /**

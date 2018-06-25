@@ -2,6 +2,7 @@ const express = require('express')
 const requestIp = require('request-ip')
 const get_ip = require('ipware')().get_ip
 const visitorRouter = express.Router()
+const controller = require('./db/controller/visitor.controller')
 
 visitorRouter.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -9,13 +10,7 @@ visitorRouter.use(function(req, res, next) {
   next();
 }); 
 
-visitorRouter.post('/visitor', (req, res) => {
-  console.log(req.body)
-  const clientIp = requestIp.getClientIp(req)
-  res.status(200).json({
-      data: 2
-  })
-})
+visitorRouter.post('/visitor', controller.create)
 
 visitorRouter.get('/test-ip', (req, res) => {
   const clientIp = requestIp.getClientIp(req)

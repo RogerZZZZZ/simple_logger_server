@@ -9,7 +9,7 @@ const bodyParse = require('body-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const router = require('./server/router')
-const pvRouter = require('./server/pv.router')
+const visitorRouter = require('./server/visitor.router')
 const eventRouter = require('./server/event.router')
 const cors = require('cors')
 const app = express()
@@ -29,7 +29,7 @@ app.use(requestIp.mw())
 
 // router init
 app.use('/', router)
-app.use('/pv', pvRouter)
+app.use('/visitor', visitorRouter)
 app.use('/event', eventRouter)
 app.use(cors({
   credentials: true
