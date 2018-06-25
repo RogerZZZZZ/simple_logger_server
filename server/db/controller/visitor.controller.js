@@ -2,11 +2,11 @@
  * Module dependencies
  */
 const mongoose = require('mongoose')
-const PVSchema = mongoose.model('PVSchema')
+const VisitorSchema = mongoose.model('VisitorSchema')
 
 
 exports.create = async (function* (req, res) {
-  const pv = new PVSchema(req.body)
+  const pv = new VisitorSchema(req.body)
   try {
     yield pv.save()
     res.status(200).json({

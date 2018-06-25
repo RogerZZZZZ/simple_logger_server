@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const PVSchema = new Schema({
+const VisitorSchema = new Schema({
   ipAddress: {
     type: String,
     default: 'not found',
@@ -37,22 +37,22 @@ const PVSchema = new Schema({
 /**
  * basic validation
  */
-PVSchema.path('ipAddress').required(true, 'ip address can not be blank')
-PVSchema.path('tag').required(true, 'tag can not be blank')
+VisitorSchema.path('ipAddress').required(true, 'ip address can not be blank')
+VisitorSchema.path('tag').required(true, 'tag can not be blank')
 
 
 /**
  * Methods 
  * bind on the instance
  */
-PVSchema.methods = {
+VisitorSchema.methods = {
 
 }
 
 /**
  * Statics
  */
-PVSchema.statics = {
+VisitorSchema.statics = {
   loadTimePeriod: (opt) => {
     const startTime = new Date(opt['startTime']) || new Date('2000-01-01')
     const endTime = new Date(opt['endTime']) || new Date()
