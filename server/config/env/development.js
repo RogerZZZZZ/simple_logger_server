@@ -2,5 +2,5 @@
  * Expose
  */
 module.exports = {
-  mongodb: 'mongodb://localhost/logger'
+  db: 'mongodb://localhost/logger'
 }

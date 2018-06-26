@@ -15,10 +15,15 @@ const VisitorSchema = new Schema({
   },
   platform: {
     type: String,
-    default: 'not clear',
+    default: '',
     trim: true,
   },
-  os: {
+  family: {
+    type: String,
+    default: '',
+    trim: true,
+  },
+  architecture: {
     type: String,
     default: '',
     trim: true,
@@ -35,7 +40,17 @@ const VisitorSchema = new Schema({
   },
   region: {
     type: String,
-    default: 'not clear',
+    default: '',
+    trim: true
+  },
+  country: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  city: {
+    type: String,
+    default: '',
     trim: true
   },
   createTime: {

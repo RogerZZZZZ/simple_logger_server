@@ -1,6 +1,12 @@
 /**
  * Utils
  */
+const grabAttribute = (chain, target) => {
+  return chain.split('.').reduce((d, i) => {
+      return typeof d == 'undefined' ? d : d[i]
+  }, target)
+}
+
 response = (res, tpl, obj, status) => {
   res.format({
     html: () => res.render(tpl, obj),
@@ -21,8 +27,24 @@ respondOrRedirect = ({ req, res }, url = '/', obj = {}, flash) => {
   });
 }
 
+only = (obj, keys) => {
+  obj = obj || {};
+  if ('string' === typeof keys) keys = keys.split(/ +/);
+  return keys.reduce((ret, key) => {
+      if (null === obj[key]) return ret
+      if (key.indexOf('.') !== -1) {
+          let t = key.slice(key.lastIndexOf('.') + 1)
+          ret[t] = grabAttribute(key, obj)
+      } else {
+          ret[key] = obj[key]
+      }
+      return ret
+  }, {})
+}
+
 
 module.exports = {
   response,
-  respondOrRedirect
+  respondOrRedirect,
+  only
 }
