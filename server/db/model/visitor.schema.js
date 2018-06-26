@@ -81,3 +81,5 @@ VisitorSchema.statics = {
     return this.find(reqOption)
   }
 }
+
+module.exports = mongoose.model('VisitorSchema', VisitorSchema)

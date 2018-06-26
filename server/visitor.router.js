@@ -10,7 +10,7 @@ visitorRouter.use(function(req, res, next) {
   next();
 }); 
 
-visitorRouter.post('/visitor', controller.create)
+visitorRouter.post('/count', controller.create)
 
 visitorRouter.get('/test-ip', (req, res) => {
   const clientIp = requestIp.getClientIp(req)
