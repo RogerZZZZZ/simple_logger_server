@@ -97,4 +97,4 @@ VisitorSchema.statics = {
   }
 }
 
-module.exports = mongoose.model('VisitorSchema', VisitorSchema)
+mongoose.model('Visitor', VisitorSchema)

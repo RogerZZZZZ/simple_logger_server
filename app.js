@@ -4,13 +4,10 @@
 
 const express = require('express')
 const fs = require('fs')
+const join = require('path').join;
 const path = require('path')
 const bodyParse = require('body-parser')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
-const router = require('./server/router')
-const visitorRouter = require('./server/visitor.router')
-const eventRouter = require('./server/event.router')
+const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
 const redis = require('redis')
@@ -18,6 +15,10 @@ const child_process = require('child_process')
 const requestIp = require('request-ip')
 const config = require('./server/config')
 const pkg = require('./package.json')
+
+require('dotenv').config()
+
+const port = process.env.PORT || 3005;
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -27,7 +28,16 @@ app.use(bodyParse.urlencoded({ extended: true }))
 
 app.use(requestIp.mw())
 
+const models = join(__dirname, 'server/db/model')
+fs.readdirSync(models)
+  .filter(file => ~file.search(/^[^\.].*\.js$/))
+  .forEach(file => require(join(models, file)))
+
 // router init
+const router = require('./server/router')
+const visitorRouter = require('./server/visitor.router')
+const eventRouter = require('./server/event.router')
+
 app.use('/', router)
 app.use('/visitor', visitorRouter)
 app.use('/event', eventRouter)
@@ -35,29 +45,25 @@ app.use(cors({
   credentials: true
 }))
 
-// session
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-  secret: pkg.name,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true,
-    maxAge: 2592000000
-  },
-  store: new MongoStore({
-    url: config.db,
-    collection: 'session'
-  })
-}))
+connect()
+  .on('error', console.log)
+  .on('disconnected', connect)
+  .once('open', listen)
+
+function listen () {
+  if (app.get('env') === 'test') return;
+  app.listen(port);
+  console.log('Express app started on port ' + port);
+}
+
+function connect () {
+  var options = { server: { socketOptions: { keepAlive: 1 } } };
+  return mongoose.connect(config.db, options).connection;
+}
 
 app.get('*', function (req, res) {
   let html = fs.readFileSync(resolve('./' + 'index.html'), 'utf-8')
   res.send(html)
-})
-
-app.listen(3005, function () {
-  console.log('访问地址为 localhost:3005')
 })
 
 const keyClient = redis.createClient({db: 1})
