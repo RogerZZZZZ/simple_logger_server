@@ -44,13 +44,6 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-
-    //让前后端http请求都转到node的3000端口，而不是前端的8080端口
-    proxy: {
-      '/': {
-        target: 'http://localhost:3000/'
-      }
-    }
   },
   performance: {
     hints: false

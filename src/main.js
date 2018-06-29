@@ -1,31 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
+import Sidebar from './view/sidebar.vue'
+import DefaultView from './view/default-view.vue'
 
+Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-// 按需引用element
-import { Button, Message, MessageBox, Notification, Popover, Tag, Input } from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-const components = [Button, Message, MessageBox, Notification, Popover, Tag, Input]
-
-components.forEach((item) => {
-  Vue.component(item.name, item)
-})
-
-const MsgBox = MessageBox
-Vue.prototype.$msgbox = MsgBox
-Vue.prototype.$alert = MsgBox.alert
-Vue.prototype.$confirm = MsgBox.confirm
-Vue.prototype.$prompt = MsgBox.prompt
-Vue.prototype.$message = Message
-Vue.prototype.$notify = Notification
-
 const router = new VueRouter({
   routes: [
-    {path: '/', components: {default: article, sidebar: sidebar}},
+    {path: '/', components: {default: DefaultView, sidebar: Sidebar}},
   ]
 })
 
