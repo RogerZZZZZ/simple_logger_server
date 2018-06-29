@@ -11,4 +11,6 @@ visitorRouter.use(function(req, res, next) {
 
 visitorRouter.post('/count', controller.create)
 
+visitorRouter.post('/scan', controller.scan)
+
 module.exports = visitorRouter

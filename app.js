@@ -66,20 +66,20 @@ app.get('*', function (req, res) {
   res.send(html)
 })
 
-const keyClient = redis.createClient({db: 1})
-const pubClient = redis.createClient()
+// const keyClient = redis.createClient({db: 1})
+// const pubClient = redis.createClient()
 
-child_process.execSync('redis-cli config set notify-keyspace-events Ex')
+// child_process.execSync('redis-cli config set notify-keyspace-events Ex')
 
-pubClient.psubscribe('__keyevent@1__:expired')
-keyClient.set('mykey', 'hello', () => {
-  keyClient.pexpireat('mykey', +new Date('2018/5/29 21:59:00'))
-});
+// pubClient.psubscribe('__keyevent@1__:expired')
+// keyClient.set('mykey', 'hello', () => {
+//   keyClient.pexpireat('mykey', +new Date('2018/5/29 21:59:00'))
+// });
 
-let futureFun = () =>{
-  console.log('hello world');
-};
+// let futureFun = () =>{
+//   console.log('hello world');
+// };
 
-pubClient.on('pmessage', (channel, listen, key)=>{
-  key == 'mykey' && futureFun();
-});
+// pubClient.on('pmessage', (channel, listen, key)=>{
+//   key == 'mykey' && futureFun();
+// });

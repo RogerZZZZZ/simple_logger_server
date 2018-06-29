@@ -26,3 +26,11 @@ exports.create = async(function *(req, res) {
     res.status(422)
   }
 })
+
+/**
+ * Load the visitor data with some limitations
+ */
+exports.scan = async (function *(req, res) {
+  const filters = req.body
+  console.log(filters)
+})
