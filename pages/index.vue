@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+    <el-container>
     <el-header>Header1</el-header>
     <el-container>
       <el-aside width="200px">
@@ -13,9 +13,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'sidebar'
-    }
+    
 </script>
 
 <style scoped>
@@ -53,4 +51,3 @@ body > .el-container {
   line-height: 320px;
 }
 </style>
-
