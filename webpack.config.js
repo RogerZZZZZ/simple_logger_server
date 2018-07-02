@@ -1,8 +1,12 @@
 var path = require('path')
 var webpack = require('webpack')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const entries = {
+  dev: './config/index.js'
+}
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './config/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -38,7 +42,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '~': path.resolve(__dirname, './src-nuxt')
     }
   },
   devServer: {
@@ -48,6 +53,18 @@ module.exports = {
   performance: {
     hints: false
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      logger: 'consola',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NUXT_ENV': JSON.stringify(process.env.NUXT_ENV),
+      'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
+    }),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:3000/dev'
+    })
+  ],
   devtool: '#eval-source-map'
 }
 

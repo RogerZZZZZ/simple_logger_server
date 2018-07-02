@@ -16,9 +16,11 @@
     
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@color: #B3C0D1;
+
 .el-header, .el-footer {
-  background-color: #B3C0D1;
+  background-color: @color;
   color: #333;
   text-align: center;
   line-height: 60px;
