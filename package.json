@@ -5,22 +5,26 @@
   "author": "LUO Jian <rogerjluo5@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "cross-env backpack dev",
+    "build": "nuxt build && cross-env backpack build",
+    "start": "cross-env NODE_ENV=production node build/dev.js",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "backpack-core": "^0.7.0",
     "bloem": "^0.2.4",
     "body-parser": "^1.17.1",
     "connect-mongo": "^1.3.2",
+    "consola": "^1.4.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "element-ui": "^2.4.2",
-    "express": "^4.15.2",
+    "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "express-validator": "^5.2.0",
     "font-awesome": "^4.7.0",
     "highlight.js": "^9.10.0",
     "lodash": "^4.17.4",
@@ -32,15 +36,21 @@
     "vue": "^2.2.1",
     "vue-awesome": "^2.2.0",
     "vue-resource": "^1.2.1",
-    "vue-router": "^2.3.0"
+    "vue-router": "^2.3.0",
+    "webpack": "3.11.0",
+    "webpack-node-externals": "^1.7.2",
+    "webpackbar": "^2.6.1"
   },
   "devDependencies": {
     "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^6.0.0",
     "babel-plugin-component": "^0.9.1",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-latest": "^6.0.0",
+    "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.5.1",
     "co": "^4.6.0",
     "cross-env": "^3.0.0",
@@ -54,10 +64,9 @@
     "ip2region": "^1.4.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "open-browser-webpack-plugin": "0.0.5",
     "style-loader": "^0.16.0",
     "vue-loader": "^11.1.4",
-    "vue-template-compiler": "^2.2.1",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "vue-template-compiler": "^2.2.1"
   }
 }

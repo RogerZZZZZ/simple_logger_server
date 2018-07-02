@@ -6,7 +6,7 @@ import '../node_modules/element-ui/lib/theme-chalk/index.css'
 
 let layouts = {
 
-  "_default": () => import('./layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
+  "_default": () => import('../src-nuxt/layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
 
 }
 

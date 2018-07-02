@@ -1,11 +1,4 @@
-const express = require('express')
+import { Router } from 'express'
+const router = Router()
 
-const eventRouter = express.Router()
-
-eventRouter.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-}); 
-
-module.exports = eventRouter
+module.exports = router

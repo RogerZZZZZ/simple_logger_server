@@ -2,7 +2,7 @@
  * Module dependencies
  */
 const mongoose = require('mongoose');
-const Visitor = mongoose.model('Visitor')
+const Visitor = require('../model/visitor.schema.js')
 mongoose.Promise = require('bluebird')
 const IP2Region = require('ip2region')
 const { wrap: async } = require('co');

@@ -7,7 +7,7 @@ const grabAttribute = (chain, target) => {
   }, target)
 }
 
-response = (res, tpl, obj, status) => {
+const response = (res, tpl, obj, status) => {
   res.format({
     html: () => res.render(tpl, obj),
     json: () => {
@@ -17,7 +17,7 @@ response = (res, tpl, obj, status) => {
   });
 }
 
-respondOrRedirect = ({ req, res }, url = '/', obj = {}, flash) => {
+const respondOrRedirect = ({ req, res }, url = '/', obj = {}, flash) => {
   res.format({
     html: () => {
       if (req && flash) req.flash(flash.type, flash.text);
@@ -27,7 +27,7 @@ respondOrRedirect = ({ req, res }, url = '/', obj = {}, flash) => {
   });
 }
 
-only = (obj, keys) => {
+const only = (obj, keys) => {
   obj = obj || {};
   if ('string' === typeof keys) keys = keys.split(/ +/);
   return keys.reduce((ret, key) => {
