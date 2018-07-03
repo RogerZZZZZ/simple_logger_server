@@ -1,4 +1,3 @@
-let OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const path = require('path')
 require('dotenv').config()
 const entries = {
@@ -33,7 +32,6 @@ module.exports = {
         'process.env.NUXT_ENV': JSON.stringify(process.env.NUXT_ENV),
         'process.env.BASE_URL': JSON.stringify(process.env.BASE_URL),
       }),
-      new OpenBrowserPlugin({url: 'http://localhost:3000/dev'})
     )
     return config
   },
