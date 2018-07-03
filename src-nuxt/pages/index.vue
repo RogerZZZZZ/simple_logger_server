@@ -5,7 +5,39 @@
 </template>
 
 <script>
-    
+  import axios from '~/plugins/axios'
+  export default {
+    components: {
+
+    },
+    asyncData: async function() {
+      let filters = {
+        startTime: '2017/08/10',
+        endTime: '2017/09/10',
+      }
+      let query = {
+        url: '/api/visitor/scan',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(filters)
+      }
+      console.log('start')
+
+      let res = await axios(query)
+      console.log(res)
+      return {
+        data: ''
+      }
+    },
+    methods: {
+
+    },
+    computed: {
+
+    }
+  }
 </script>
 
 <style scoped lang="less">

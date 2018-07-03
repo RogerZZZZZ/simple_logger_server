@@ -1,9 +1,11 @@
 import { Router } from 'express'
 let router = Router()
-import controller from './db/controller/visitor.controller'
+const controller = require('./db/controller/visitor.controller')
 
-router.post('/count', controller.create)
+router.post('/visitor/count', controller.create)
 
-router.post('/scan', controller.scan)
+router.post('/visitor/scan', controller.scan)
 
-module.exports = router
+router.get('/visitor/test', controller.test)
+
+export default router

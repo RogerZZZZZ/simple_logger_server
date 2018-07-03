@@ -81,13 +81,13 @@ module.exports = require("mongoose");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("request-ip");
+module.exports = require("path");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("request-ip");
 
 /***/ }),
 /* 4 */
@@ -128,12 +128,13 @@ function _interopRequireDefault(obj) {
 
 var express = __webpack_require__(0);
 var fs = __webpack_require__(19);
-var path = __webpack_require__(3);
+var join = __webpack_require__(2).join;
+var path = __webpack_require__(2);
 
 var bodyParser = __webpack_require__(20);
 var mongoose = __webpack_require__(1);
 var cors = __webpack_require__(21);
-var requestIp = __webpack_require__(2);
+var requestIp = __webpack_require__(3);
 var session = __webpack_require__(22);
 var expressValidator = __webpack_require__(23);
 var MongoStore = __webpack_require__(24)(session);
@@ -144,6 +145,7 @@ __webpack_require__(4).config();
 var app = express();
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3005;
+var models = join(process.cwd(), '/server/db/model');
 
 var resolve = function resolve(file) {
   return path.resolve(__dirname, file);
@@ -159,10 +161,21 @@ app.use(requestIp.mw());
 app.use(cors());
 app.use(expressValidator());
 
+module.exports = app;
+
 /**
  * Router register
  */
-var basePath = '/' + nuxtConfig.env.basePath || '';
+
+console.log(models);
+fs.readdirSync(models).filter(function (file) {
+  return ~file.search(/^[^\.].*\.js$/);
+}).forEach(function (file) {
+  var fileName = file.slice(0, file.lastIndexOf('.'));
+  __webpack_require__(32)("./" + fileName);
+});
+
+var basePath = '/api';
 
 app.use('' + basePath, _router2.default);
 
@@ -220,6 +233,10 @@ module.exports = require("nuxt");
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = __webpack_require__(0);
 
 var _event = __webpack_require__(11);
@@ -239,7 +256,7 @@ var router = (0, _express.Router)();
 router.use(_event2.default);
 router.use(_visitor2.default);
 
-module.exports = router;
+exports.default = router;
 
 /***/ }),
 /* 11 */
@@ -248,11 +265,15 @@ module.exports = router;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = __webpack_require__(0);
 
 var router = (0, _express.Router)();
 
-module.exports = router;
+exports.default = router;
 
 /***/ }),
 /* 12 */
@@ -261,23 +282,22 @@ module.exports = router;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = __webpack_require__(0);
 
-var _visitor = __webpack_require__(13);
-
-var _visitor2 = _interopRequireDefault(_visitor);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-
 var router = (0, _express.Router)();
+var controller = __webpack_require__(13);
 
-router.post('/count', _visitor2.default.create);
+router.post('/visitor/count', controller.create);
 
-router.post('/scan', _visitor2.default.scan);
+router.post('/visitor/scan', controller.scan);
 
-module.exports = router;
+router.get('/visitor/test', controller.test);
+
+exports.default = router;
 
 /***/ }),
 /* 13 */
@@ -292,13 +312,14 @@ module.exports = router;
 
 var mongoose = __webpack_require__(1);
 var Visitor = __webpack_require__(14);
+// const Visitor = mongoose.model('Visitor')
 mongoose.Promise = __webpack_require__(15);
 var IP2Region = __webpack_require__(16);
 
 var _require = __webpack_require__(17),
     async = _require.wrap;
 
-var requestIp = __webpack_require__(2);
+var requestIp = __webpack_require__(3);
 
 var _require2 = __webpack_require__(18),
     only = _require2.only;
@@ -346,7 +367,7 @@ exports.create = async( /*#__PURE__*/regeneratorRuntime.mark(function _callee(re
  * Load the visitor data with some limitations
  */
 exports.scan = async( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
-  var filters;
+  var filters, data;
   return regeneratorRuntime.wrap(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -354,14 +375,38 @@ exports.scan = async( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req
           filters = req.body;
 
           console.log(filters);
+          _context2.prev = 2;
+          _context2.next = 5;
+          return Visitor.loadTimePeriod(filters);
 
-        case 2:
+        case 5:
+          data = _context2.sent;
+
+          console.log(data);
+          _context2.next = 13;
+          break;
+
+        case 9:
+          _context2.prev = 9;
+          _context2.t0 = _context2['catch'](2);
+
+          console.error(_context2.t0);
+          res.status(422);
+
+        case 13:
         case 'end':
           return _context2.stop();
       }
     }
-  }, _callee2, this);
+  }, _callee2, this, [[2, 9]]);
 }));
+
+exports.test = function (req, res) {
+  console.log('aaa');
+  res.status(200).json({
+    data: 1
+  });
+};
 
 /***/ }),
 /* 14 */
@@ -680,7 +725,7 @@ module.exports = require("webpackbar");
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {
 
-var path = __webpack_require__(3);
+var path = __webpack_require__(2);
 
 var development = __webpack_require__(28);
 var production = __webpack_require__(29);
@@ -724,6 +769,143 @@ module.exports = {
 module.exports = {
   db: process.env.MONGODB
 };
+
+/***/ }),
+/* 30 */,
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var mongoose = __webpack_require__(1);
+
+var Schema = mongoose.Schema;
+
+var EventSchema = new Schema({
+  ipAddress: {
+    type: String,
+    default: 'not found',
+    trim: true
+  },
+  event: {
+    type: String,
+    default: '',
+    trime: true
+  },
+  tag: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  platform: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  family: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  architecture: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  version: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  page: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  region: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  country: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  city: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
+  },
+  userName: {
+    type: String,
+    default: '',
+    trim: true
+  }
+});
+
+/**
+ * basic validation
+ */
+EventSchema.path('ipAddress').required(true, 'ip address can not be blank');
+EventSchema.path('tag').required(true, 'tag can not be blank');
+EventSchema.path('page').required(true, 'page can not be blank');
+
+/**
+ * Methods 
+ * bind on the instance
+ */
+EventSchema.methods = {};
+
+/**
+ * Statics
+ */
+EventSchema.statics = {
+  loadTimePeriod: function loadTimePeriod(opt) {
+    var startTime = new Date(opt['startTime']) || new Date('2000-01-01');
+    var endTime = new Date(opt['endTime']) || new Date();
+    var reqOption = {
+      createTime: {
+        '$gte': startTime.toISOString(),
+        '$lte': endTime.toISOString()
+      }
+    };
+    return undefined.find(reqOption);
+  }
+};
+
+mongoose.model('Event', EventSchema);
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./event.schema": 31,
+	"./event.schema.js": 31,
+	"./visitor.schema": 14,
+	"./visitor.schema.js": 14
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 32;
 
 /***/ })
 /******/ ]);

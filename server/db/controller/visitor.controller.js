@@ -3,13 +3,14 @@
  */
 const mongoose = require('mongoose');
 const Visitor = require('../model/visitor.schema.js')
+// const Visitor = mongoose.model('Visitor')
 mongoose.Promise = require('bluebird')
 const IP2Region = require('ip2region')
 const { wrap: async } = require('co');
 const requestIp = require('request-ip')
 const { only } = require('../utils/')
 
-exports.create = async(function *(req, res) {
+exports.create = async(function* (req, res) {
   const clientIp = requestIp.getClientIp(req)
   const query = new IP2Region()
   let d = Object.assign(req.body, only(query.search(clientIp), 'region country city'))
@@ -30,7 +31,21 @@ exports.create = async(function *(req, res) {
 /**
  * Load the visitor data with some limitations
  */
-exports.scan = async (function *(req, res) {
+exports.scan = async (function* (req, res) {
   const filters = req.body
   console.log(filters)
+  try {
+    let data = yield Visitor.loadTimePeriod(filters)
+    console.log(data)
+  } catch (err) {
+    console.error(err)
+    res.status(422)
+  }
 })
+
+exports.test = function (req, res) {
+  console.log('aaa')
+  res.status(200).json({
+    data: 1
+  })
+}

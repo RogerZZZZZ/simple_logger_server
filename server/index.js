@@ -1,5 +1,6 @@
 const express = require('express')
 const fs = require('fs')
+const join = require('path').join
 const path = require('path')
 import { Nuxt, Builder } from 'nuxt'
 const bodyParser = require('body-parser')
@@ -16,6 +17,7 @@ require('dotenv').config()
 const app = express()
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || 3005
+const models = join(process.cwd(), '/server/db/model');
 
 const resolve = file => path.resolve(__dirname, file)
 
@@ -29,10 +31,21 @@ app.use(requestIp.mw())
 app.use(cors())
 app.use(expressValidator())
 
+module.exports = app
+
 /**
  * Router register
  */
-const basePath = `/${nuxtConfig.env.basePath}` || ''
+
+console.log(models)
+fs.readdirSync(models)
+  .filter(file => ~file.search(/^[^\.].*\.js$/))
+  .forEach(file => {
+    let fileName = file.slice(0, file.lastIndexOf('.'))
+    require('./db/model/' + fileName)
+  })
+
+const basePath = '/api'
 
 import router from './router.js'
 app.use(`${basePath}`, router)

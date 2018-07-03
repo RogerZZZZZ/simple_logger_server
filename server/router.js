@@ -7,4 +7,4 @@ const router = Router()
 router.use(eventRouter)
 router.use(visitorRouter)
 
-module.exports = router
+export default router
