@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,38 +75,50 @@ module.exports = require("express");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("dotenv");
+module.exports = require("request-ip");
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(4);
-module.exports = __webpack_require__(5);
-
+module.exports = require("path");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("babel-polyfill");
+module.exports = require("dotenv");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(6);
+module.exports = __webpack_require__(7);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-polyfill");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname, logger) {
 
-var _nuxt = __webpack_require__(7);
+var _nuxt = __webpack_require__(9);
 
-var _router = __webpack_require__(8);
+var _router = __webpack_require__(10);
 
 var _router2 = _interopRequireDefault(_router);
 
@@ -115,20 +127,20 @@ function _interopRequireDefault(obj) {
 }
 
 var express = __webpack_require__(0);
-var fs = __webpack_require__(9);
-var path = __webpack_require__(1);
+var fs = __webpack_require__(19);
+var path = __webpack_require__(3);
 
-var bodyParser = __webpack_require__(10);
-var mongoose = __webpack_require__(11);
-var cors = __webpack_require__(12);
-var requestIp = __webpack_require__(13);
-var session = __webpack_require__(14);
-var expressValidator = __webpack_require__(15);
-var MongoStore = __webpack_require__(16)(session);
-var nuxtConfig = __webpack_require__(17);
-var config = __webpack_require__(19);
+var bodyParser = __webpack_require__(20);
+var mongoose = __webpack_require__(1);
+var cors = __webpack_require__(21);
+var requestIp = __webpack_require__(2);
+var session = __webpack_require__(22);
+var expressValidator = __webpack_require__(23);
+var MongoStore = __webpack_require__(24)(session);
+var nuxtConfig = __webpack_require__(25);
+var config = __webpack_require__(27);
 
-__webpack_require__(2).config();
+__webpack_require__(4).config();
 var app = express();
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3005;
@@ -187,22 +199,22 @@ app.use(session({
 
 app.listen(port, host);
 logger.success('Server listening on http://localhost:' + port + basePath); // eslint-disable-line no-console
-/* WEBPACK VAR INJECTION */}.call(exports, "server", __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, "server", __webpack_require__(8)))
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("consola");
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("nuxt");
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -210,11 +222,11 @@ module.exports = require("nuxt");
 
 var _express = __webpack_require__(0);
 
-var _event = __webpack_require__(22);
+var _event = __webpack_require__(11);
 
 var _event2 = _interopRequireDefault(_event);
 
-var _visitor = __webpack_require__(23);
+var _visitor = __webpack_require__(12);
 
 var _visitor2 = _interopRequireDefault(_visitor);
 
@@ -230,190 +242,7 @@ router.use(_visitor2.default);
 module.exports = router;
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("cors");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("request-ip");
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-session");
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-validator");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("connect-mongo");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var WebpackBar = __webpack_require__(18);
-__webpack_require__(2).config();
-var path = "" || '';
-
-module.exports = {
-  /*
-  ** Headers of the page
-  */
-  head: {
-    title: 'nuxt',
-    meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
-  },
-  /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#3B8070' },
-  /**
-   * Gobal CSS import
-   */
-  css: ['element-ui/lib/theme-chalk/index.css'],
-  env: {
-    basePath: '' + path,
-    baseURL: ("" || 'http://localhost:3005') + ('/' + path)
-  },
-  /**
-   * plugins
-   */
-  plugins: ['~/plugins/element-ui'],
-  srcDir: 'src-nuxt/',
-  /*
-  ** Build configuration
-  */
-  build: {
-    vendor: ['babel-polyfill', 'axios', '~/plugins/element-ui.js'],
-    extractCSS: true,
-    /*
-    ** Run ESLint on save
-    */
-    extend: function extend(config, _ref) {
-      var isDev = _ref.isDev,
-          isClient = _ref.isClient;
-
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-      var urlLoader = config.module.rules.find(function (rule) {
-        return rule.loader === 'url-loader';
-      });
-      config.module.rules.splice(config.module.rules.indexOf(urlLoader), 1);
-      config.module.rules.push({
-        test: /\.(png|jpe?g|gif|svg)$/,
-        loader: 'url-loader',
-        exclude: /(assets\/svg)/,
-        query: {
-          limit: 500 * 1000, // 500KO
-          name: 'img/[name].[hash:7].[ext]'
-        }
-      });
-
-      config.plugins.push(new WebpackBar());
-    }
-  }
-};
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("webpackbar");
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {
-
-var path = __webpack_require__(1);
-
-var development = __webpack_require__(20);
-var production = __webpack_require__(21);
-
-var defaults = {
-  root: path.join(__dirname, '..')
-};
-
-module.exports = {
-  development: Object.assign({}, development, defaults),
-  production: Object.assign({}, production, defaults)
-}["development" || 'development'];
-/* WEBPACK VAR INJECTION */}.call(exports, "server/config"))
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Expose
- */
-
-module.exports = {
-  db: 'mongodb://localhost/logger'
-};
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Expose
- */
-
-module.exports = {
-  db: process.env.MONGODB
-};
-
-/***/ }),
-/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -426,7 +255,7 @@ var router = (0, _express.Router)();
 module.exports = router;
 
 /***/ }),
-/* 23 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -434,7 +263,7 @@ module.exports = router;
 
 var _express = __webpack_require__(0);
 
-var _visitor = __webpack_require__(24);
+var _visitor = __webpack_require__(13);
 
 var _visitor2 = _interopRequireDefault(_visitor);
 
@@ -451,7 +280,7 @@ router.post('/scan', _visitor2.default.scan);
 module.exports = router;
 
 /***/ }),
-/* 24 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -461,17 +290,17 @@ module.exports = router;
  * Module dependencies
  */
 
-var mongoose = __webpack_require__(11);
-var Visitor = __webpack_require__(25);
-mongoose.Promise = __webpack_require__(26);
-var IP2Region = __webpack_require__(27);
+var mongoose = __webpack_require__(1);
+var Visitor = __webpack_require__(14);
+mongoose.Promise = __webpack_require__(15);
+var IP2Region = __webpack_require__(16);
 
-var _require = __webpack_require__(28),
+var _require = __webpack_require__(17),
     async = _require.wrap;
 
-var requestIp = __webpack_require__(13);
+var requestIp = __webpack_require__(2);
 
-var _require2 = __webpack_require__(29),
+var _require2 = __webpack_require__(18),
     only = _require2.only;
 
 exports.create = async( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
@@ -535,13 +364,13 @@ exports.scan = async( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req
 }));
 
 /***/ }),
-/* 25 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var mongoose = __webpack_require__(11);
+var mongoose = __webpack_require__(1);
 
 var Schema = mongoose.Schema;
 
@@ -640,25 +469,25 @@ VisitorSchema.statics = {
 mongoose.model('Visitor', VisitorSchema);
 
 /***/ }),
-/* 26 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 27 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("ip2region");
 
 /***/ }),
-/* 28 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("co");
 
 /***/ }),
-/* 29 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -723,6 +552,177 @@ module.exports = {
   response: response,
   respondOrRedirect: respondOrRedirect,
   only: only
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("cors");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-session");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-validator");
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("connect-mongo");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var WebpackBar = __webpack_require__(26);
+__webpack_require__(4).config();
+var path = "" || '';
+
+module.exports = {
+  /*
+  ** Headers of the page
+  */
+  head: {
+    title: 'nuxt',
+    meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: 'Nuxt.js project' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }, { rel: 'stylesheet', href: 'https://unpkg.com/element-ui/lib/theme-chalk/index.css' }]
+  },
+  /*
+  ** Customize the progress bar color
+  */
+  loading: { color: '#3B8070' },
+  /**
+   * Gobal CSS import
+   */
+  css: [],
+  env: {
+    basePath: '' + path,
+    baseURL: ("" || 'http://localhost:3005') + ('/' + path)
+  },
+  /**
+   * plugins
+   */
+  plugins: ['~/plugins/element-ui'],
+  srcDir: 'src-nuxt/',
+  /*
+  ** Build configuration
+  */
+  build: {
+    vendor: ['babel-polyfill', 'axios', '~/plugins/element-ui.js'],
+    extractCSS: true,
+    /*
+    ** Run ESLint on save
+    */
+    extend: function extend(config, _ref) {
+      var isDev = _ref.isDev,
+          isClient = _ref.isClient;
+
+      if (isDev && isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        });
+      }
+      var urlLoader = config.module.rules.find(function (rule) {
+        return rule.loader === 'url-loader';
+      });
+      config.module.rules.splice(config.module.rules.indexOf(urlLoader), 1);
+      config.module.rules.push({
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: 'url-loader',
+        exclude: /(assets\/svg)/,
+        query: {
+          limit: 500 * 1000, // 500KO
+          name: 'img/[name].[hash:7].[ext]'
+        }
+      });
+
+      config.plugins.push(new WebpackBar());
+    }
+  }
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = require("webpackbar");
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(__dirname) {
+
+var path = __webpack_require__(3);
+
+var development = __webpack_require__(28);
+var production = __webpack_require__(29);
+
+var defaults = {
+  root: path.join(__dirname, '..')
+};
+
+module.exports = {
+  development: Object.assign({}, development, defaults),
+  production: Object.assign({}, production, defaults)
+}["development" || 'development'];
+/* WEBPACK VAR INJECTION */}.call(exports, "server/config"))
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Expose
+ */
+
+module.exports = {
+  db: 'mongodb://localhost/logger'
+};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Expose
+ */
+
+module.exports = {
+  db: process.env.MONGODB
 };
 
 /***/ })

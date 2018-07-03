@@ -1,14 +1,6 @@
 <template>
     <el-container>
-    <el-header>Header1</el-header>
-    <el-container>
-      <el-aside width="200px">
-        <router-view name="sidebar"></router-view>
-      </el-aside>
-      <el-main>
-        <div>sss</div>
-      </el-main>
-    </el-container>
+      <div>sss</div>
   </el-container>
 </template>
 
