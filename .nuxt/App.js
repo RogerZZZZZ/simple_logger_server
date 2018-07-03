@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
+import '../src-nuxt/assets/css/global.css'
+
 
 let layouts = {
 

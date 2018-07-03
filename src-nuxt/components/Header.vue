@@ -1,9 +1,9 @@
 <template>
-  <div>header</div>
+  <header>Header</header>
 </template>
 
 <script>
   export default {
-    
+
   }
 </script>

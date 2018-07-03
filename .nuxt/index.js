@@ -13,6 +13,7 @@ import { setContext, getLocation, getRouteData } from './utils'
 
 /* Plugins */
 import nuxt_plugin_elementui_a6a1b20a from 'nuxt_plugin_elementui_a6a1b20a' // Source: ../src-nuxt/plugins/element-ui
+import nuxt_plugin_svgicon_9c677890 from 'nuxt_plugin_svgicon_9c677890' // Source: ../src-nuxt/plugins/svg-icon
 
 
 // Component: <no-ssr>
@@ -135,6 +136,7 @@ async function createApp (ssrContext) {
   // Plugin execution
   
   if (typeof nuxt_plugin_elementui_a6a1b20a === 'function') await nuxt_plugin_elementui_a6a1b20a(app.context, inject)
+  if (typeof nuxt_plugin_svgicon_9c677890 === 'function') await nuxt_plugin_svgicon_9c677890(app.context, inject)
   
 
   // If server-side, wait for async component to be resolved first

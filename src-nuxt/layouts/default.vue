@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header></header>
+    <my-header></my-header>
     <el-container>
       <el-aside>
         <sidebar></sidebar>
@@ -9,19 +9,19 @@
         <nuxt></nuxt>
       </el-main>
     </el-container>
-    <footer></footer>
+    <my-footer></my-footer>
   </div>
 </template>
 
 <script>
-  import Header from '~/components/Header'
-  import Footer from '~/components/Footer'
+  import MyHeader from '~/components/Header'
+  import MyFooter from '~/components/Footer'
   import Sidebar from '~/components/Sidebar'
 
   export default {
     components: {
-      Header,
-      Footer,
+      MyHeader,
+      MyFooter,
       Sidebar,
     }
   }

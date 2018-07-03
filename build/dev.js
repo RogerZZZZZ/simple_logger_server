@@ -617,7 +617,7 @@ module.exports = {
   /**
    * Gobal CSS import
    */
-  css: [],
+  css: ['~/assets/css/global.css'],
   env: {
     basePath: '' + path,
     baseURL: ("" || 'http://localhost:3005') + ('/' + path)
@@ -625,7 +625,7 @@ module.exports = {
   /**
    * plugins
    */
-  plugins: ['~/plugins/element-ui'],
+  plugins: ['~/plugins/element-ui', '~/plugins/svg-icon'],
   srcDir: 'src-nuxt/',
   /*
   ** Build configuration
