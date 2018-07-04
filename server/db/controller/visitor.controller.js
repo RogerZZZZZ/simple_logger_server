@@ -2,8 +2,8 @@
  * Module dependencies
  */
 const mongoose = require('mongoose');
-const Visitor = require('../model/visitor.schema.js')
-// const Visitor = mongoose.model('Visitor')
+require('../model/visitor.schema')
+const Visitor = mongoose.model('Visitor')
 mongoose.Promise = require('bluebird')
 const IP2Region = require('ip2region')
 const { wrap: async } = require('co');
@@ -33,19 +33,12 @@ exports.create = async(function* (req, res) {
  */
 exports.scan = async (function* (req, res) {
   const filters = req.body
-  console.log(filters)
   try {
     let data = yield Visitor.loadTimePeriod(filters)
     console.log(data)
+    res.json(data).status(200)
   } catch (err) {
     console.error(err)
     res.status(422)
   }
 })
-
-exports.test = function (req, res) {
-  console.log('aaa')
-  res.status(200).json({
-    data: 1
-  })
-}

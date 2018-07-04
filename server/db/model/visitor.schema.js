@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
-const VisitorSchema = new Schema({
+const Visitor = new Schema({
   ipAddress: {
     type: String,
     default: 'not found',
@@ -67,34 +67,54 @@ const VisitorSchema = new Schema({
 /**
  * basic validation
  */
-VisitorSchema.path('ipAddress').required(true, 'ip address can not be blank')
-VisitorSchema.path('tag').required(true, 'tag can not be blank')
-VisitorSchema.path('page').required(true, 'page can not be blank')
+Visitor.path('ipAddress').required(true, 'ip address can not be blank')
+Visitor.path('tag').required(true, 'tag can not be blank')
+Visitor.path('page').required(true, 'page can not be blank')
 
 
 /**
  * Methods 
  * bind on the instance
  */
-VisitorSchema.methods = {
+Visitor.methods = {
 
 }
 
 /**
  * Statics
  */
-VisitorSchema.statics = {
-  loadTimePeriod: (opt) => {
+Visitor.statics = {
+  /**
+   * load visitor data with limitations
+   * @param {Object} opt
+   */
+  loadTimePeriod: function(opt) {
     const startTime = new Date(opt['startTime']) || new Date('2000-01-01')
     const endTime = new Date(opt['endTime']) || new Date()
-    const reqOption = {
-      createTime: {
-        '$gte': startTime.toISOString(),
-        '$lte': endTime.toISOString()
+    return this.aggregate([
+      {
+        $match: {
+          createTime: {
+            '$gte': startTime,
+            '$lte': endTime,
+          }
+        }
+      },{
+        $group: {
+          month: {
+            $month: '$createTime',
+          },
+          count: {
+            $sum: 1
+          }
+        }
+      },{
+        $sort: {
+          month: 1
+        }
       }
-    }
-    return this.find(reqOption)
+    ])
   }
 }
 
-mongoose.model('Visitor', VisitorSchema)
+mongoose.model('Visitor', Visitor)

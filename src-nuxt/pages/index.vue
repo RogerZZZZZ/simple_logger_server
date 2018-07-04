@@ -12,7 +12,7 @@
     },
     asyncData: async function() {
       let filters = {
-        startTime: '2017/08/10',
+        startTime: '2017/05/10',
         endTime: '2017/09/10',
       }
       let query = {
@@ -23,12 +23,14 @@
         },
         data: JSON.stringify(filters)
       }
-      console.log('start')
-
       let res = await axios(query)
-      console.log(res)
       return {
         data: ''
+      }
+    },
+    data () {
+      return {
+
       }
     },
     methods: {
