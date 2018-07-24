@@ -91,7 +91,6 @@ Visitor.statics = {
   loadTimePeriod: function(opt) {
     const startTime = new Date(opt['startTime']) || new Date('2000-01-01')
     const endTime = new Date(opt['endTime']) || new Date()
-    // Todo unknown group operator '$month'
     // Todo implement more filter
     return this.aggregate([
       {
@@ -103,7 +102,7 @@ Visitor.statics = {
         }
       },{
         $group: {
-          month: {
+          _id: {
             $month: '$createTime',
           },
           count: {
