@@ -21,7 +21,7 @@ const mockVisitor = async() => {
       userName: faker.finance.account(),
     }
     console.log(`processing ${i}`)
-    await axios.post('http://localhost:3005/visitor/count', data)
+    await axios.post('http://localhost:3005/api/visitor/count', data)
   }
   console.log('endding')
 }
