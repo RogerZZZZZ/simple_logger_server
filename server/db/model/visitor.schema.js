@@ -101,17 +101,27 @@ Visitor.statics = {
           }
         }
       },{
+        $project: {
+          year: {
+            $year: '$createTime',
+          },
+          month: {
+            $month: '$createTime'
+          }
+        },
+      },{
         $group: {
           _id: {
-            $month: '$createTime',
+            year: '$year',
+            month: '$month'
           },
-          count: {
+          sum: {
             $sum: 1
           }
         }
       },{
         $sort: {
-          month: 1
+          _id: 1
         }
       }
     ])

@@ -1,7 +1,5 @@
 <template>
-    <el-container>
-      <div>sss</div>
-  </el-container>
+    <ve-line :data="chartData" :settings="config"></ve-line>
 </template>
 
 <script>
@@ -24,17 +22,31 @@
         data: JSON.stringify(filters)
       }
       let res = await axios(query)
+      console.log(res.data)
+      let data = res.data.map(it => it.date = it['_id']['year'] + '' + it['_id']['month'])
+      console.log(data)
       return {
-        data: ''
+        chartData: {
+          columns: ['date', 'sum'],
+          rows: data
+        }
       }
     },
     data () {
       return {
-
+        config: {
+          stack: {
+            'month': ['sum']
+          },
+          area: true,
+        },
+        chartData: {
+          columns: ['date', 'sum'],
+          rows: [],
+        }
       }
     },
     methods: {
-
     },
     computed: {
 

@@ -35,7 +35,6 @@ exports.scan = async (function* (req, res) {
   const filters = req.body
   try {
     let data = yield Visitor.loadTimePeriod(filters)
-    console.log(data)
     res.json(data).status(200)
   } catch (err) {
     console.error(err)

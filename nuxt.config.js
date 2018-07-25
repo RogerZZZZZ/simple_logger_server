@@ -38,6 +38,7 @@ module.exports = {
     plugins: [
         '~/plugins/element-ui',
         '~/plugins/svg-icon',
+        '~/plugins/v-charts',
     ],
     srcDir: 'src-nuxt/',
     /*
