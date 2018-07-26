@@ -25,7 +25,6 @@
         ],
         type: 'Month',
       }
-      console.log(filters)
       let query = visitorScanQuery(filters)
       let res = await axios(query)
       let data = res.data
