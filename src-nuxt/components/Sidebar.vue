@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import ExpandCloseButton from '~/components/common/ExpandCloseButton'
+  import ExpandCloseButton from '~/components/common/expand-close-button'
   export default {
     components: {
       ExpandCloseButton

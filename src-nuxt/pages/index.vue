@@ -1,12 +1,18 @@
 <template>
+  <div class="main-container" id="main-container">
+    <filter-controller></filter-controller>
+
     <ve-line :data="chartData" :settings="config"></ve-line>
+  </div>
 </template>
 
 <script>
   import axios from '~/plugins/axios'
+  import FilterController from '~/components/filter-controller'
+
   export default {
     components: {
-
+      FilterController
     },
     asyncData: async function() {
       let filters = {
@@ -22,8 +28,8 @@
         data: JSON.stringify(filters)
       }
       let res = await axios(query)
-      console.log(res.data)
-      let data = res.data.map(it => it.date = it['_id']['year'] + '' + it['_id']['month'])
+      let data = res.data
+      data.map(it => it.date = it['_id']['year'] + '/' + it['_id']['month'])
       console.log(data)
       return {
         chartData: {
