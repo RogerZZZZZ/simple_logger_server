@@ -1,8 +1,8 @@
 <template>
   <div class="filter-controller-container">
     <div class="date-controller">
-      <date-filter-controller v-model="filters.date"/>
-      <date-type-filter-controller v-model="filters.type"/>
+      <date-filter-controller v-model="filters.date" :initVal="initVal.date"/>
+      <date-type-filter-controller v-model="filters.type" :initVal="initVal.type"/>
     </div>
   </div>
 </template>
@@ -17,12 +17,12 @@
       DateFilterController,
       DateTypeFilterController,
     },
+    props: [
+      'initVal'
+    ],
     data () {
       return {
-        filters: {
-          date: '',
-          type: '',
-        },
+        filters: this.initVal,
       }
     },
     watch: {

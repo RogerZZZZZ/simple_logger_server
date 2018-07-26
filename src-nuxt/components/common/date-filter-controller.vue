@@ -28,9 +28,12 @@
             }
           }]
         },
-        value: '',
+        value: this.initVal,
       }
     },
+    props: [
+      'initVal'
+    ],
     watch: {
       value (val) {
         this.$emit('input', val)

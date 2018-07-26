@@ -1,6 +1,6 @@
 <template>
   <div class="main-container" id="main-container">
-    <filter-controller v-model="filters"></filter-controller>
+    <filter-controller v-model="filters" :initVal="initValue"></filter-controller>
 
     <ve-line :data="chartData" :settings="config"></ve-line>
   </div>
@@ -8,25 +8,25 @@
 
 <script>
   import axios from '~/plugins/axios'
+  import dayjs from 'dayjs'
   import FilterController from '~/components/filter-controller'
+  import { visitorScanQuery } from '~/queries/'
 
   export default {
     components: {
       FilterController
     },
     asyncData: async function() {
-      let filters = {
-        startTime: '2017/05/10',
-        endTime: '2017/09/10',
+      const currDate = dayjs()
+      const filters = {
+        date: [
+          currDate.subtract(1, 'year').format('YYYY-MM-DD'),
+          currDate.format('YYYY-MM-DD'),
+        ],
+        type: 'Month',
       }
-      let query = {
-        url: '/api/visitor/scan',
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: JSON.stringify(filters)
-      }
+      console.log(filters)
+      let query = visitorScanQuery(filters)
       let res = await axios(query)
       let data = res.data
       data.map(it => it.date = it['_id']['year'] + '/' + it['_id']['month'])
@@ -35,7 +35,9 @@
         chartData: {
           columns: ['date', 'sum'],
           rows: data
-        }
+        },
+        initValue: filters,
+        filters,
       }
     },
     data () {
@@ -53,9 +55,10 @@
       }
     },
     watch: {
-      filter: {
+      filters: {
         handler (val) {
-
+          // let data = await axios(visitorScanQuery(val))
+          console.log(val)
         },
         deep: true,
       }

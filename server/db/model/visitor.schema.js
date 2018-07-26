@@ -89,8 +89,9 @@ Visitor.statics = {
    * @param {Object} opt
    */
   loadTimePeriod: function(opt) {
-    const startTime = new Date(opt['startTime']) || new Date('2000-01-01')
-    const endTime = new Date(opt['endTime']) || new Date()
+    const dateRange = opt.date
+    const startTime = new Date(dateRange[0]) || new Date('2000-01-01')
+    const endTime = new Date(dateRange[1]) || new Date()
     // Todo implement more filter
     return this.aggregate([
       {

@@ -1,9 +1,9 @@
 <template>
   <div id="filter-type-controller" class="filter-type-controller">
-    <el-radio v-model="type" label="By Month" border />
-    <el-radio v-model="type" label="By Year" border />
-    <el-radio v-model="type" label="By Weekday" border />
-    <el-radio v-model="type" label="By Hour" border />
+    <el-radio v-model="type" label="Month" border />
+    <el-radio v-model="type" label="Year" border />
+    <el-radio v-model="type" label="Weekday" border />
+    <el-radio v-model="type" label="Hour" border />
   </div>
 </template>
 
@@ -12,9 +12,12 @@
     name: 'date-type-filter-controller',
     data () {
       return {
-        type: '',
+        type: this.initVal,
       }
     },
+    props: [
+      'initVal'
+    ],
     watch: {
       type (val) {
         this.$emit('input', val)
