@@ -1,6 +1,6 @@
 <template>
   <div class="main-container" id="main-container">
-    <filter-controller></filter-controller>
+    <filter-controller v-model="filters"></filter-controller>
 
     <ve-line :data="chartData" :settings="config"></ve-line>
   </div>
@@ -50,6 +50,14 @@
           columns: ['date', 'sum'],
           rows: [],
         }
+      }
+    },
+    watch: {
+      filter: {
+        handler (val) {
+
+        },
+        deep: true,
       }
     },
     methods: {

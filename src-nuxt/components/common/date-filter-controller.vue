@@ -7,6 +7,7 @@
     range-separator="->"
     start-placeholde="Start Time"
     end-placeholde="End Time"
+    value-format="yyyy-MM-dd"
     :picker-options="pickOptions">
   </el-date-picker>
 </template>
