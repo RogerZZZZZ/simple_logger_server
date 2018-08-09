@@ -1,15 +1,13 @@
-<template>
-  <el-date-picker
-    v-model="value"
+<template lang="pug">
+  el-date-picker(v-model="value"
     type="daterange"
     align="right"
     unlink-panels
-    range-separator="->"
+    range-separator="-"
     start-placeholde="Start Time"
     end-placeholde="End Time"
     value-format="yyyy-MM-dd"
-    :picker-options="pickOptions">
-  </el-date-picker>
+    :picker-options="pickOptions")
 </template>
 
 <script>

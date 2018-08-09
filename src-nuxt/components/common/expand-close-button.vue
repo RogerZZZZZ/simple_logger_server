@@ -1,8 +1,7 @@
-<template>
-  <div class="button">
-    <svgicon v-if="!isCollapse" name="narrow" width="30" height="30" @click.native="toggerCollapse"></svgicon>
-    <svgicon v-if="isCollapse" name="fullscreen" width="30" height="30" @click.native="toggerCollapse"></svgicon>
-  </div>
+<template lang="pug">
+  .button
+    svgicon(v-if="!isCollapse" name="narrow" width="30" height="30" @click.native='toggerCollapse')
+    svgicon(v-if="isCollapse" name="fullscreen" width="30" height="30" @click.native='toggerCollapse')
 </template>
 
 <script>

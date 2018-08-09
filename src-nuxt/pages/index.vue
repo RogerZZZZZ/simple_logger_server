@@ -1,9 +1,7 @@
-<template>
-  <div class="main-container" id="main-container">
-    <filter-controller v-model="filters" :initVal="initValue"></filter-controller>
-
-    <ve-line :data="chartData" :settings="config"></ve-line>
-  </div>
+<template lang="pug">
+#main-container.main-container
+  filter-controller(v-model="filters" :initVal="initValue")
+  ve-line(:data="chartData" :settings="config")
 </template>
 
 <script>
@@ -14,7 +12,7 @@
 
   export default {
     components: {
-      FilterController
+      FilterController,
     },
     asyncData: async function() {
       const currDate = dayjs()

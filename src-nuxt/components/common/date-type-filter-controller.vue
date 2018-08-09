@@ -1,10 +1,7 @@
-<template>
-  <div id="filter-type-controller" class="filter-type-controller">
-    <el-radio v-model="type" label="Month" border />
-    <el-radio v-model="type" label="Year" border />
-    <el-radio v-model="type" label="Weekday" border />
-    <el-radio v-model="type" label="Hour" border />
-  </div>
+<template lang="pug">
+  #filter-type-controller.filter-type-controller
+    el-radio(v-for="(item,index) in labels" :key="index" 
+            v-model="type" :label="item" border)
 </template>
 
 <script>
@@ -13,6 +10,7 @@
     data () {
       return {
         type: this.initVal,
+        labels: ['Month', 'Year', 'Weekday', 'Hour'],
       }
     },
     props: [

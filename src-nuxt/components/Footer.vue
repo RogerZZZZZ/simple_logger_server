@@ -1,5 +1,5 @@
-<template>
-  <footer>Footer</footer>
+<template lang="pug">
+  footer Footer
 </template>
 
 <script>
